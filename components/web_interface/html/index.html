@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModuChill - Контролер Холодильного Обладнання</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>ModuChill</h1>
+        <h2>Універсальний контролер холодильного обладнання</h2>
+        <nav>
+            <ul>
+                <li><a href="#dashboard" class="active" id="nav-dashboard">Панель</a></li>
+                <li><a href="#settings" id="nav-settings">Налаштування</a></li>
+                <li><a href="#logs" id="nav-logs">Журнал</a></li>
+                <li><a href="#about" id="nav-about">Про систему</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Панель керування -->
+        <section id="dashboard" class="page active">
+            <div class="dashboard-grid">
+                <div class="card temp-card">
+                    <h3>Температура</h3>
+                    <div class="temp-display">
+                        <span id="current-temp">--.-</span>
+                        <span class="unit">°C</span>
+                    </div>
+                    <div class="temp-status">
+                        <p>Уставка: <span id="temp-setpoint">5.0</span>°C</p>
+                        <p>Гістерезис: <span id="temp-hysteresis">1.0</span>°C</p>
+                    </div>
+                </div>
+                
+                <div class="card status-card">
+                    <h3>Статус Системи</h3>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <div class="status-label">Компресор</div>
+                            <div class="status-value" id="compressor-status">Вимк</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Вентилятор</div>
+                            <div class="status-value" id="fan-status">Вимк</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Режим</div>
+                            <div class="status-value" id="mode-status">Авто</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Wi-Fi</div>
+                            <div class="status-value" id="wifi-status">Підключено</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card control-card">
+                    <h3>Керування</h3>
+                    <div class="control-group">
+                        <label for="mode-select">Режим:</label>
+                        <select id="mode-select">
+                            <option value="auto">Автоматичний</option>
+                            <option value="manual">Ручний</option>
+                            <option value="defrost">Розморожування</option>
+                            <option value="off">Вимкнено</option>
+                        </select>
+                    </div>
+                    <div class="control-group manual-controls" id="manual-controls" style="display:none;">
+                        <button id="compressor-toggle" class="control-btn">Компресор Увімк/Вимк</button>
+                        <button id="fan-toggle" class="control-btn">Вентилятор Увімк/Вимк</button>
+                    </div>
+                </div>
+                
+                <div class="card graph-card">
+                    <h3>Графік Температури</h3>
+                    <div class="graph-container">
+                        <p class="placeholder-message">Графік буде доступний після збору достатньої кількості даних.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Налаштування -->
+        <section id="settings" class="page">
+            <h2>Налаштування Системи</h2>
+            <form id="settings-form">
+                <div class="settings-group">
+                    <h3>Температурний Контроль</h3>
+                    <div class="form-row">
+                        <label for="set-temp">Уставка (°C):</label>
+                        <input type="number" id="set-temp" min="-20" max="20" step="0.5" value="5.0">
+                    </div>
+                    <div class="form-row">
+                        <label for="set-hysteresis">Гістерезис (°C):</label>
+                        <input type="number" id="set-hysteresis" min="0.1" max="5" step="0.1" value="1.0">
+                    </div>
+                    <div class="form-row">
+                        <label for="min-compressor-off">Мін. час простою компресора (сек):</label>
+                        <input type="number" id="min-compressor-off" min="0" max="600" step="10" value="300">
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <h3>Мережеві Налаштування</h3>
+                    <div class="form-row">
+                        <label for="device-name">Ім'я пристрою:</label>
+                        <input type="text" id="device-name" value="ModuChill-Controller">
+                    </div>
+                    <div class="form-row">
+                        <label for="admin-password">Пароль адміністратора:</label>
+                        <input type="password" id="admin-password">
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <h3>Датчики</h3>
+                    <div class="form-row">
+                        <label for="sensor-type">Тип датчика:</label>
+                        <select id="sensor-type">
+                            <option value="ds18b20">DS18B20</option>
+                            <option value="ntc">NTC Термістор</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="sensor-pin">Пін датчика:</label>
+                        <input type="number" id="sensor-pin" min="0" max="40" value="5">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">Зберегти налаштування</button>
+                    <button type="button" class="secondary-btn" id="reset-settings">Скинути налаштування</button>
+                </div>
+            </form>
+        </section>
+        
+        <!-- Журнал -->
+        <section id="logs" class="page">
+            <h2>Журнал Системи</h2>
+            <div class="log-controls">
+                <select id="log-level">
+                    <option value="all">Всі повідомлення</option>
+                    <option value="error">Помилки</option>
+                    <option value="warning">Попередження</option>
+                    <option value="info">Інформація</option>
+                </select>
+                <button id="refresh-logs" class="secondary-btn">Оновити</button>
+                <button id="clear-logs" class="secondary-btn">Очистити</button>
+            </div>
+            <div class="log-container">
+                <pre id="log-content" class="log-content">Завантаження журналу...</pre>
+            </div>
+        </section>
+        
+        <!-- Про систему -->
+        <section id="about" class="page">
+            <h2>Про Систему</h2>
+            <div class="about-info">
+                <p><strong>Версія ПЗ:</strong> <span id="firmware-version">0.1.0</span></p>
+                <p><strong>ID пристрою:</strong> <span id="device-id">MC-001</span></p>
+                <p><strong>Активних модулів:</strong> <span id="modules-count">0</span></p>
+                <p><strong>Вільна пам'ять:</strong> <span id="free-memory">-- KB</span></p>
+                <p><strong>Час роботи:</strong> <span id="uptime">-- хв</span></p>
+            </div>
+            
+            <div class="system-actions">
+                <button id="restart-device" class="warning-btn">Перезавантажити пристрій</button>
+                <button id="update-firmware" class="primary-btn" disabled>Оновити прошивку</button>
+            </div>
+            
+            <div class="about-project">
+                <h3>Проект ModuChill</h3>
+                <p>ModuChill - це універсальний контролер холодильного обладнання з відкритим вихідним кодом. Система розроблена з використанням ESP32, забезпечує гнучкість, модульність та розширюваність для різних холодильних застосувань.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 ModuChill | <a href="https://github.com/moduchill" target="_blank">GitHub</a></p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+
+</html>

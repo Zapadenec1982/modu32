@@ -1,0 +1,10 @@
+idf_component_register(
+    SRCS 
+        "hal.cpp"
+    INCLUDE_DIRS 
+        "."
+    REQUIRES 
+        driver
+        esp_common
+        core
+)

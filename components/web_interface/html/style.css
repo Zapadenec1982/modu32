@@ -1,0 +1,350 @@
+/* ModuChill - Стилі веб-інтерфейсу */
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --warning-color: #e74c3c;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --gray-color: #95a5a6;
+    --bg-color: #f5f7fa;
+    --card-color: #ffffff;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: var(--bg-color);
+    padding-bottom: 60px; /* Місце для футера */
+}
+
+/* Основні стилі елементів */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+/* Хедер і навігація */
+header {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 1rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+header h2 {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0 0.5rem;
+}
+
+nav a {
+    color: var(--light-color);
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius);
+    display: block;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+nav a.active {
+    background-color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Головний контент */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Картки */
+.card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--light-color);
+}
+
+/* Сітка для панелі керування */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .graph-card {
+        grid-column: span 2;
+    }
+}
+
+/* Карточка температури */
+.temp-card {
+    text-align: center;
+}
+
+.temp-display {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.unit {
+    font-size: 1.8rem;
+}
+
+.temp-status p {
+    margin: 0.5rem 0;
+}
+
+/* Карточка статусу */
+.status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-label {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+}
+
+.status-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.2rem;
+}
+
+/* Кнопки */
+button, select, input {
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--light-color);
+    background-color: var(--light-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.secondary-btn {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.warning-btn {
+    background-color: var(--warning-color);
+    color: white;
+    border: none;
+}
+
+.control-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+/* Налаштування форми */
+.form-row {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row label {
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+input, select {
+    padding: 0.5rem;
+    border: 1px solid var(--gray-color);
+    border-radius: var(--border-radius);
+    background-color: white;
+}
+
+.settings-group {
+    margin-bottom: 2rem;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Журнал */
+.log-controls {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.log-container {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.log-content {
+    font-family: monospace;
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Про систему */
+.about-info {
+    margin-bottom: 2rem;
+}
+
+.about-info p {
+    margin-bottom: 0.5rem;
+}
+
+.system-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.about-project {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--light-color);
+}
+
+/* Футер */
+footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--light-color);
+    text-decoration: underline;
+}
+
+/* Додаткові класи для статусів */
+.status-on {
+    color: var(--secondary-color);
+}
+
+.status-off {
+    color: var(--gray-color);
+}
+
+.status-error {
+    color: var(--warning-color);
+}
+
+/* Для графіка */
+.graph-container {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+}
+
+.placeholder-message {
+    color: var(--gray-color);
+    text-align: center;
+}

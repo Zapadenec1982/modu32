@@ -1,0 +1,10 @@
+idf_component_register(
+    SRCS 
+        "fridge_controller.cpp"
+    INCLUDE_DIRS 
+        "."
+    REQUIRES 
+        core
+        hal
+        json
+)
